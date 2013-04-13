@@ -24,19 +24,28 @@
       "Sepsis"
     ];
     
-    $( "#sortable" ).sortable();
-    $( "#sortable" ).disableSelection();
+    $( ".sortable" ).sortable();
+    $( ".sortable" ).disableSelection();
 
     $("#ailments").autocomplete({
       source: ailments,
       select : function(event, ui){
-        $("#sortable").append("<li class=\"ui-state-default\">" + ui.item.label + "</li>");
+        $("#ailments-list").append("<li class=\"ui-state-default\">" + ui.item.label + "</li>");
         $("#ailments").val("");
         return false;
       }
     });
 
-    $( "#draggable" ).draggable();
+    $("#nutrients").autocomplete({
+      source: ailments,
+      select : function(event, ui){
+        $("#nutrients-list").append("<li class=\"ui-state-default\">" + ui.item.label + "</li>");
+        $("#nutrients").val("");
+        return false;
+      }
+    });
+
+    $( ".draggable" ).draggable();
 
   });
 

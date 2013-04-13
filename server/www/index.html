@@ -15,16 +15,27 @@
 </head>
 <body>
 
+<div id="container">
+<div id="ailments-widget" class="ui-widget-content draggable"> 
+  <div class="autocomplete-widget">
+    <label for="ailments">Ailments: </label>
+    <input id="ailments" placeholder="Search Ailments" class="round"/>
 
-<div id="draggable" class="ui-widget-content"> 
-<div class="autocomplete-widget">
-  <label for="ailments">Ailments: </label>
-  <input id="ailments" />
+    <ul id="ailments-list" class="sortable">
+    </ul>
 
-  <ul id="sortable">
-    
-  </ul>
+  </div>
+</div>
 
+<div id="nutrients-widget" class="ui-widget-content draggable"> 
+  <div class="autocomplete-widget">
+    <label for="nutrients">Nutrients: </label>
+    <input id="nutrients" placeholder="Search Nutrients" class="round"/>
+
+    <ul id="nutrients-list" class="sortable">
+    </ul>
+
+  </div>
 </div>
 </div>
 
