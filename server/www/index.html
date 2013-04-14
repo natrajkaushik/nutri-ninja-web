@@ -3,19 +3,24 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>jQuery UI Autocomplete - Default functionality</title>
+  <title>NutriNinja</title>
+  
+  <!-- CSS Styles -->
   <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+  <link rel="stylesheet" href="/css/style.css"/>
+
+  <!-- Scripts -->
   <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
   <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
-  
-
-  <link rel="stylesheet" href="/css/style.css"/>
   <script src="/js/main.js"> </script>
 
 </head>
 <body>
 
+
 <div id="container">
+
+<!-- *********************** Ailments Widget ***********************- -->
 <div id="ailments-widget" class="ui-widget-content draggable"> 
   <div class="autocomplete-widget">
     <label for="ailments">Ailments: </label>
@@ -27,6 +32,7 @@
   </div>
 </div>
 
+<!-- *********************** Nutrients Widget ***********************- -->
 <div id="nutrients-widget" class="ui-widget-content draggable"> 
   <div class="autocomplete-widget">
     <label for="nutrients">Nutrients: </label>
@@ -37,6 +43,16 @@
 
   </div>
 </div>
+
+<!-- *********************** Categories Widget ***********************- -->
+
+<div id="categories-widget" class="ui-widget-content draggable">
+  <h3 class="ui-widget-header">Categories</h3>
+
+  <ul id="categories-list" class="sortable">
+  </ul>
+</div>
+
 </div>
 
  
