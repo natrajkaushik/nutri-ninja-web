@@ -20,9 +20,13 @@ body {
 
 .ui-widget-content{
 	float:left;
-	width:400px;
+	/*width:400px;*/
 	border: 1px dashed #333;
-	padding: 5px 5px 5px 25px;
+	background: #F5F5F5 !important;
+}
+
+#ailments-widget{
+	background: #FFF5EB !important;	
 }
 
 #nutrients-widget{
@@ -32,15 +36,38 @@ body {
 
 .draggable { width: 400px; height: 400px; padding: 0.5em; }
 
-.sortable { list-style-type: none; margin: 0; padding-top: 30px; width: 60%; }
-.sortable li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.4em; height: 18px; }
-.sortable li span { position: absolute; margin-left: -1.3em; }
+.sortable { 
+	list-style-type: none; 
+	margin: 0; 
+	padding-top: 30px; 
+	width: 60%; 
+}
+
+.sortable li {
+	width: 110%; 
+	margin: 0 3px 3px 3px; 
+	padding: 0.4em; 
+	padding-left: 2.5em; 
+	font-size: 1em; 
+	height: 18px; 
+	border-radius: 8px;
+	/* background: #CCFF99; */
+}
+
+.sortable li span { 
+	position: absolute; 
+	margin-left: -1.3em; 
+}
 
 .round {
     width: 50%;
     border-radius: 15px;
     border: 1px #000 solid;
     padding: 5px 5px 5px 25px;
+}
+
+.traffic-light{
+	float:right;
 }
 
 /*.autocomplete-widget{
