@@ -1,3 +1,7 @@
+@keyframes blink { 
+   50% { border-color: #ffffff; } 
+}
+
 body {
 	font-family: "Trebuchet MS", "Helvetica", "Arial",  "Verdana", "sans-serif";
 	font-size: 100%;
@@ -90,6 +94,8 @@ body {
 .add-category{
 	float:right;
 }
+
+
 
 /*.autocomplete-widget{
 	margin: 0px auto;
