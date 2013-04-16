@@ -16,7 +16,7 @@
 
     //$( ".sortable" ).sortable(); //make all the li's sortable
     //$( ".sortable" ).disableSelection();
-    $( ".draggable" ).draggable(); // make the widgets draggable
+    $(".draggable").draggable(); // make the widgets draggable
 
     /* ------------------------- Ailments Widget ------------------------- */
     $("#ailments").autocomplete({
@@ -37,12 +37,12 @@
 
     
     /* ------------------------- Nutrients Widget ------------------------- */
-    var lights_img_html = "<img id=\"green-light\" class=\"traffic-light\" src=\"/img/green.png\"></img>" + "<img id=\"orange-light\" class=\"traffic-light\" src=\"/img/orange.png\"></img>" 
-              + "<img id=\"red-light\" class=\"traffic-light\" src=\"/img/red.png\"></img>";
+    var lights_img_html = "<img id=\"green-light\" class=\"traffic-light\" src=\"img/green.png\"></img>" + "<img id=\"orange-light\" class=\"traffic-light\" src=\"img/orange.png\"></img>" 
+              + "<img id=\"red-light\" class=\"traffic-light\" src=\"img/red.png\"></img>";
 
-    var green_tick_html = "<img class=\"selection-feedback\" src=\"/img/green_tick.png\"/>";
-    var light_green_tick_html = "<img class=\"selection-feedback\" src=\"/img/light_green_tick.png\"/>";
-    var red_cross_html = "<img class=\"selection-feedback\" src=\"/img/red_cross.png\"/>";
+    var green_tick_html = "<img class=\"selection-feedback\" src=\"img/green_tick.png\"/>";
+    var light_green_tick_html = "<img class=\"selection-feedback\" src=\"img/light_green_tick.png\"/>";
+    var red_cross_html = "<img class=\"selection-feedback\" src=\"img/red_cross.png\"/>";
 
     $("#nutrients").autocomplete({
       source: nutrients,
@@ -193,7 +193,7 @@
       if(!_.contains(selectedCategories, categoryId)){
         var category = NutriNinja.getCategory(categoryId);
         var row = "<li id=" + categoryId + " style=\"background:#FFFFFF\" class=\"ui-state-default category-row\">" + category.label 
-                  + "<img src=\"/img/add.png\" class=\"add-category\">" + "</li>";
+                  + "<img src=\"img/add.png\" class=\"add-category\">" + "</li>";
         $("#categories-list").append(row);
         selectedCategories.push(categoryId);  
       }
@@ -256,12 +256,22 @@
       var categoryId = $(this).attr("id");
       if(!_.contains(selectedGroceries, categoryId)){
         var category = NutriNinja.getCategory(categoryId);
-        var row = "<li id=" + "G" + categoryId + " style=\"background:#FFFFFF\" class=\"ui-state-default grocery-row\">" + category.label 
+        var row = "<li id=" + "G" + categoryId + " nid=" + categoryId + " style=\"background:#FFFFFF\" class=\"ui-state-default grocery-row\">" + category.label 
                   + "</li>";
         $("#grocery-list").append(row);
         selectedGroceries.push(categoryId);  
       }  
     });
+
+    function clearGroceryList(){
+      $("#grocery-list .grocery-row").remove();
+      selectedGroceries = []; 
+    }
+
+    function updateGroceryList(){
+      var categoryIds = $("#grocery-list .grocery-row").attr("nid");
+      clearGroceryList();
+    }
 
   });
 

@@ -5,6 +5,7 @@
 body {
 	font-family: "Trebuchet MS", "Helvetica", "Arial",  "Verdana", "sans-serif";
 	font-size: 100%;
+	/*background: #66A3FF;*/
 }
 
 .ui-autocomplete {
@@ -20,6 +21,57 @@ body {
 
 * html .ui-autocomplete {
 	   height: 100px;
+}
+
+.navbar{
+	position: fixed;
+	top: 0;
+}
+
+.navbar-inner{
+	position: fixed;
+	min-height: 30px;
+	max-height: 40px;
+	background: #d14836;
+}
+
+.navbar-container{
+	width: 2000px;
+}
+
+.navbar .brand{
+	margin-left: 800px;
+}
+
+#nutri-ninja-banner{
+	margin-left:-10px;
+}
+
+.personal-details span{
+	font-size: 130%
+}
+
+#container{
+	width: 1500px;
+	height: 500px;
+	margin: 0px auto;
+	margin-top: 100px;
+}
+
+.personal-details{
+	width: 1500px;
+	height: 150px;
+	margin: 0px auto;
+	margin-top: 50px;
+	padding: 5px;
+	border: 2px solid #eeeeee;
+	border-radius: 8px;
+	background: #DEDEDE;	
+}
+
+.personal-details img{
+	vertical-align: middle;
+	border: 3px solid #fff;
 }
 
 .ui-widget-content{
@@ -48,7 +100,7 @@ body {
 }
 
 
-.draggable { width: 400px; height: 400px; padding: 0.5em; }
+.draggable { width: 350px; height: 400px; padding: 0.5em; }
 
 .sortable { 
 	list-style-type: none; 
@@ -94,10 +146,10 @@ body {
 	border : 2px solid #4D4D94;
 }
 
-#categories-widget { width: 400px; height: 400px; padding: 0.5em; }
+#categories-widget { width: 350px; height: 400px; padding: 0.5em; }
 #categories-widget h3 { text-align: center; margin: 0; }
 
-#grocery-list-widget { width: 400px; height: 400px; padding: 0.5em; }
+#grocery-list-widget { width: 350px; height: 400px; padding: 0.5em; }
 #grocery-list-widget h3 { text-align: center; margin: 0; }
 
 .add-category{
