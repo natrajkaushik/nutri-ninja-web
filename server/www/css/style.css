@@ -39,6 +39,12 @@ body {
 
 #categories-widget{
 	left: 20px;
+	background: #FFFFC2 !important;	
+}
+
+#grocery-list-widget{
+	left: 30px;
+	background: #CCFFFF !important;	
 }
 
 
@@ -90,6 +96,9 @@ body {
 
 #categories-widget { width: 400px; height: 400px; padding: 0.5em; }
 #categories-widget h3 { text-align: center; margin: 0; }
+
+#grocery-list-widget { width: 400px; height: 400px; padding: 0.5em; }
+#grocery-list-widget h3 { text-align: center; margin: 0; }
 
 .add-category{
 	float:right;

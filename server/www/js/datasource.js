@@ -24,8 +24,7 @@ NutriNinja.nutrients = [
 			label : "Protein",
 			categoriesMap : {
 				high : ["c1", "c2", "c3"],
-				low : ["c4"],
-				zero : ["c5"]
+				low : ["c4"]
 			}
 
 		},
@@ -35,8 +34,7 @@ NutriNinja.nutrients = [
 			label : "Calcium",
 			categoriesMap : {
 				high : ["c1", "c4"],
-				low : ["c2"],
-				zero : ["c3", "c5"]
+				low : ["c2"]
 			}
 		},
 		{
@@ -45,8 +43,7 @@ NutriNinja.nutrients = [
 			label : "Vitamin-C",
 			categoriesMap : {
 				high : ["c5"],
-				low : ["c1"],
-				zero : ["c2", "c3", "c4"]
+				low : ["c1"]
 			}
 		},
 		{
@@ -55,8 +52,7 @@ NutriNinja.nutrients = [
 			label : "Unsaturated Fat",
 			categoriesMap : {
 				high : ["c3", "c4"],
-				low : ["c1", "c2"],
-				zero : ["c5"]
+				low : ["c1", "c2"]
 			}
 		},
 		{
@@ -65,8 +61,7 @@ NutriNinja.nutrients = [
 			label : "Omega-3",
 			categoriesMap : {
 				high : ["c3"],
-				low : ["c1", "c2", "c4"],
-				zero : ["c5"]
+				low : ["c1", "c2", "c4"]
 			}
 		}
 ];

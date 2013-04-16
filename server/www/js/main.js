@@ -10,6 +10,7 @@
     var selectedAilments = []; //keeps track of currently selected ailments
     var selectedNutrients = []; // keeps track of currently selected nutrients
     var selectedCategories = []; // keeps track of currently selected categories
+    var selectedGroceries = []; // keeps track of currently selected grocery list
     var nutrientInFocus; // Nutrient for which category recommendations are currently present in the category widget
 
 
@@ -51,6 +52,7 @@
                         + ui.item.label + lights_img_html + "</li>");
           selectedNutrients.push(ui.item.id);
           setFocusOnNutrient(ui.item.id);
+          addCategories(ui.item.id);
           $("#nutrients").val("");
         }
         return false;
@@ -70,6 +72,7 @@
             $("#nutrients-list").append(green_tick_html + "<li id=" + nutrient.id + " style=\"background:#CCFF99\" class=\"ui-state-default nutrient-add\">" 
                         + nutrient.label + lights_img_html + "</li>");
             selectedNutrients.push(nutrient.id);
+            addCategories(nutrient.id);
             setFocusOnNutrient(nutrient.id);
           }
         }
@@ -83,6 +86,7 @@
             $("#nutrients-list").append(red_cross_html + "<li id=" + nutrient.id + " style=\"background:#FF8566\" class=\"ui-state-default nutrient-avoid\">" 
                         + nutrient.label + lights_img_html + "</li>");
             selectedNutrients.push(nutrient.id);
+            setFocusOnNutrient(nutrient.id);
           }
         }
       }
@@ -125,6 +129,9 @@
               parent.before(green_tick_html);
               break;
           }
+          setFocusOnNutrient(parent.attr("id"));
+          addCategories(parent.attr("id"));
+          //populateCategories();
           event.stopPropagation();   
         }
      );
@@ -144,8 +151,6 @@
       $("#categories-widget").css("border", "2px solid #4D4D94");
 
       nutrientInFocus = nutrientId;
-
-      addCategories(nutrientId);
     }
 
     /**
@@ -161,14 +166,18 @@
      * selects and adds the categories for a particular nutrientId
      */
     function addCategories(nutrientId){
-      // if nutrient is not to be avoided
       var nutrientRow = $("#" + nutrientId);
+      
+      clearCategoryWidget();
+      var categoriesToAvoid = getCategoriesToAvoid();
+      // if nutrient is not to be avoided
       if(!nutrientRow.hasClass("nutrient-avoid")){
         var nutrient = NutriNinja.getNutrient(nutrientRow.attr("id"));
 
-        clearCategoryWidget();
         // add a row for each category in category widget
         var categoriesToAdd = nutrientRow.hasClass("nutrient-add") ? nutrient.categoriesMap.high : nutrient.categoriesMap.less; 
+        categoriesToAdd = _.difference(categoriesToAdd, categoriesToAvoid);
+        
         for(var i = 0; i < categoriesToAdd.length; i++){
           addCategoryRow(categoriesToAdd[i]);  
         }
@@ -194,15 +203,65 @@
      * clears the category widget
      */
     function clearCategoryWidget(){
-      $("#category-widget").html(""); 
+      $("#categories-list .category-row").remove();
+      selectedCategories = []; 
+    }
+
+    /**
+     * returns the list of categories to be avoided (based on the nutrients that are to be avoided)
+     */
+    function getCategoriesToAvoid(){
+      var categoriesToAvoid = [];
+
+      var avoidRows = $("#nutrients-widget .nutrient-avoid");
+      for(var i = 0; i < avoidRows.length; i++){
+        var nutrientId = $(avoidRows[i]).attr("id");
+        var nutrient = NutriNinja.getNutrient(nutrientId);
+
+        var avoid = _.union(nutrient.categoriesMap.high, nutrient.categoriesMap.low);
+        categoriesToAvoid = _.union(categoriesToAvoid, avoid);
+      }
+
+      return categoriesToAvoid;
     }
 
     /**
      * populates categories based on current status of nutrients widget
      */
     function populateCategories(){
+      clearCategoryWidget();
+      var categoriesToAvoid = getCategoriesToAvoid();
+      var add = $("#nutrients-widget .nutrient-add");
+      var less = $("#nutrients-widget .nutrient-less");
+      var nutrientId, nutrient;
+      var categorySet = [];
 
+      for(var i = 0; i < add.length; i++){
+        nutrientId = $(add[i]).attr("id");
+        nutrient = NutriNinja.getNutrient(nutrientId);
+        categorySet = categorySet.concat(nutrient.categoriesMap.high);
+      }
+
+      for(var i = 0; i < less.length; i++){
+        nutrientId = $(add[i]).attr("id");
+        nutrient = NutriNinja.getNutrient(nutrientId);
+        categorySet = categorySet.concat(nutrient.categoriesMap.low);
+      }
+
+      categorySet = _.uniq(_.difference(categorySet, categoriesToAvoid));
+      _.each(categorySet, addCategoryRow);
     }
+
+    $(document).on("click", "#categories-list .category-row", function(event){
+      var categoryId = $(this).attr("id");
+      if(!_.contains(selectedGroceries, categoryId)){
+        var category = NutriNinja.getCategory(categoryId);
+        var row = "<li id=" + "G" + categoryId + " style=\"background:#FFFFFF\" class=\"ui-state-default grocery-row\">" + category.label 
+                  + "</li>";
+        $("#grocery-list").append(row);
+        selectedGroceries.push(categoryId);  
+      }  
+    });
 
   });
 
