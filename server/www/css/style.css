@@ -24,23 +24,24 @@ body {
 }
 
 .navbar{
-	position: fixed;
+/*	position: fixed;	*/
 	top: 0;
 }
 
 .navbar-inner{
-	position: fixed;
+/*	position: fixed;	*/
 	min-height: 30px;
 	max-height: 40px;
-	background: #d14836;
+/*	background: #d14836;	*/
+	border-bottom: 3px solid black;
 }
 
 .navbar-container{
-	width: 2000px;
+	width: 100%;
 }
 
 .navbar .brand{
-	margin-left: 800px;
+/*	margin-left: 800px;	*/
 }
 
 #nutri-ninja-banner{
@@ -48,21 +49,23 @@ body {
 }
 
 .personal-details span{
-	font-size: 130%
+	font-size: 130%;
+	vertical-align: top;
 }
 
 #container{
-	width: 1500px;
-	height: 500px;
+	width: 100%;
+/*	height: 500px;		*/
 	margin: 0px auto;
-	margin-top: 100px;
+/*	margin-top: 100px;	*/
 }
 
 .personal-details{
-	width: 1500px;
+	width: 99%;
 	height: 150px;
 	margin: 0px auto;
-	margin-top: 50px;
+	margin-top: 5px;
+	margin-bottom: 5px;
 	padding: 5px;
 	border: 2px solid #eeeeee;
 	border-radius: 8px;
@@ -85,8 +88,26 @@ body {
 	background: #FFF5EB !important;	
 }
 
+#ailments-list{
+	-webkit-padding-start: 5%;
+	-moz-padding-start: 5%;
+}
+
+#ailments-list li {
+	line-height: 1em;
+}
+
 #nutrients-widget{
 	left: 10px;
+}
+
+#nutrients-list{
+	-webkit-padding-start: 10%;
+	-moz-padding-start: 10%;
+}
+
+#nutrients-list li {
+	line-height: 1em;
 }
 
 #categories-widget{
@@ -94,13 +115,34 @@ body {
 	background: #FFFFC2 !important;	
 }
 
+#categories-list{
+	-webkit-padding-start: 5%;
+	-moz-padding-start: 5%;
+}
+
+#categories-list li {
+	line-height: 1em;
+}
+
 #grocery-list-widget{
 	left: 30px;
 	background: #CCFFFF !important;	
 }
 
+#grocery-list{
+	-webkit-padding-start: 5%;
+	-moz-padding-start: 5%;
+}
 
-.draggable { width: 350px; height: 400px; padding: 0.5em; }
+#grocery-list li {
+	line-height: 1em;
+}
+
+.draggable { 
+	width: 23% !important;
+	height: 400px;
+	padding: 0.5em;
+}
 
 .sortable { 
 	list-style-type: none; 
@@ -134,22 +176,24 @@ body {
 
 .traffic-light{
 	float:right;
+	height: 22px;
 }
 
 .selection-feedback{
 	float: left;
 	padding-top: 6px;
 	margin-left: -25px;
+	height: 22px;
 }
 
 .selected{
 	border : 2px solid #4D4D94;
 }
 
-#categories-widget { width: 350px; height: 400px; padding: 0.5em; }
+#categories-widget { width: 305px; height: 400px; padding: 0.5em; }
 #categories-widget h3 { text-align: center; margin: 0; }
 
-#grocery-list-widget { width: 350px; height: 400px; padding: 0.5em; }
+#grocery-list-widget { width: 305px; height: 400px; padding: 0.5em; }
 #grocery-list-widget h3 { text-align: center; margin: 0; }
 
 .add-category{

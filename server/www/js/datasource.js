@@ -33,7 +33,7 @@ NutriNinja.nutrients = [
 			value : "Calcium",
 			label : "Calcium",
 			categoriesMap : {
-				high : ["c1", "c4"],
+				high : ["c1", "c4", "c6"],
 				low : ["c2"]
 			}
 		},
@@ -91,6 +91,11 @@ NutriNinja.categories = [
 			id : "c5",
 			value : "Oranges",
 			label : "Oranges"
+		},
+		{
+			id: "c6",
+			value: "Figs",
+			label: "Figs"
 		}
 ];
 

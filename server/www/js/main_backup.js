@@ -40,9 +40,9 @@
     var lights_img_html = "<img id=\"green-light\" class=\"traffic-light\" src=\"img/green_n.png\"></img>" + "<img id=\"orange-light\" class=\"traffic-light\" src=\"img/yellow_n.png\"></img>" 
               + "<img id=\"red-light\" class=\"traffic-light\" src=\"img/red_n.png\"></img>";
 
-    var green_tick_html = "<img class=\"selection-feedback\" src=\"img/yes.png\"/>";
-    var light_green_tick_html = "<img class=\"selection-feedback\" src=\"img/maybe.png\"/>";
-    var red_cross_html = "<img class=\"selection-feedback\" src=\"img/no.png\"/>";
+    var green_tick_html = "<img class=\"selection-feedback\" src=\"img/green_tick.png\"/>";
+    var light_green_tick_html = "<img class=\"selection-feedback\" src=\"img/light_green_tick.png\"/>";
+    var red_cross_html = "<img class=\"selection-feedback\" src=\"img/red_cross.png\"/>";
 
     $("#nutrients").autocomplete({
       source: nutrients,
@@ -99,7 +99,6 @@
       "click", ".traffic-light", function(event){
           var id = $(this).attr("id");
           var parent = $(this).parent();
-//        var tick_sts = parent.children(".selection-feedback").remove();
           switch (id){
             case "green-light":
               parent.css("background", "#CCFF99");
