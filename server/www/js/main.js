@@ -99,13 +99,14 @@
       "click", ".traffic-light", function(event){
           var id = $(this).attr("id");
           var parent = $(this).parent();
-//        var tick_sts = parent.children(".selection-feedback").remove();
+          //var selectionFeedbackImage = $()
           switch (id){
             case "green-light":
               parent.css("background", "#CCFF99");
               parent.removeClass("nutrient-avoid");
               parent.removeClass("nutrient-less");
               parent.addClass("nutrient-add");
+              parent.prev().remove();
               parent.before(green_tick_html);
               break;
             case "orange-light":
@@ -113,6 +114,7 @@
               parent.removeClass("nutrient-avoid");
               parent.addClass("nutrient-less");
               parent.removeClass("nutrient-add");
+              parent.prev().remove();
               parent.before(light_green_tick_html);
               break;
             case "red-light":
@@ -120,6 +122,7 @@
               parent.addClass("nutrient-avoid");
               parent.removeClass("nutrient-less");
               parent.removeClass("nutrient-add");
+              parent.prev().remove();
               parent.before(red_cross_html);
               break;
             default:  
@@ -127,6 +130,7 @@
               parent.removeClass("nutrient-avoid");
               parent.removeClass("nutrient-less");
               parent.addClass("nutrient-add");
+              parent.prev().remove();
               parent.before(green_tick_html);
               break;
           }
