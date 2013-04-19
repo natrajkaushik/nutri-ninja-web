@@ -18,6 +18,10 @@
     //$( ".sortable" ).disableSelection();
     $(".draggable").draggable(); // make the widgets draggable
 
+    //initialize user details
+    var sampleUserDetails = "Name: Gery Oldman Age: 72 Gender: Male City: Atlanta, GA";
+    $(".personal-details span").text(sampleUserDetails);
+
     /* ------------------------- Ailments Widget ------------------------- */
     $("#ailments").autocomplete({
       source: ailments,
@@ -257,26 +261,87 @@
       _.each(categorySet, addCategoryRow);
     }
 
+    /**
+     * on click event handler on category row to add it to the grocery list
+     */
     $(document).on("click", "#categories-list .category-row", function(event){
       var categoryId = $(this).attr("id");
       if(!_.contains(selectedGroceries, categoryId)){
         var category = NutriNinja.getCategory(categoryId);
-        var row = "<li id=" + "G" + categoryId + " nid=" + categoryId + " style=\"background:#FFFFFF\" class=\"ui-state-default grocery-row\">" + category.label 
+        var row = "<li id=" + "G" + categoryId + " categoryId=" + categoryId + " style=\"background:#FFFFFF\" class=\"ui-state-default grocery-row\">" + category.label 
                   + "</li>";
         $("#grocery-list").append(row);
         selectedGroceries.push(categoryId);  
       }  
     });
 
+    /* ------------------------- Grocery List Widget ------------------------- */
+
+    /**
+     * clear the grocery list
+     */
     function clearGroceryList(){
       $("#grocery-list .grocery-row").remove();
       selectedGroceries = []; 
     }
 
+    // TODO: update the grocery list
     function updateGroceryList(){
-      var categoryIds = $("#grocery-list .grocery-row").attr("nid");
+      var categoryIds = $("#grocery-list .grocery-row").attr("categoryId");
       clearGroceryList();
     }
+
+    /**
+     * creates the printable grocery list dialog with categoriy entries from the set [categoryIds]
+     */
+    function createPrintableGroceryListDialog(categoryIds){
+      var html = "<div id=\"print-grocery-list\">";
+      _.each(categoryIds, processCategory);
+
+      function processCategory(categoryId){
+        var category = NutriNinja.getCategory(categoryId);
+        html += "<span class=\"print-category\">"  + category.label + ": " + "Aisle " + category.aisle + "</span><br>";
+        var brands = category.brands;
+        for(var i = 0; i < brands.length; i++){
+          html+= "&nbsp&nbsp&nbsp&nbsp.....&nbsp" + "<span class=\"print-brand\">"  + brands[i] + "</span><br>";  
+        }
+        html += "<br><br>"
+      }
+
+      html+= "</div>";
+      $("#dialog").html(html);
+    }
+
+
+    /**
+     * on click handler for the print button on grocery list
+     */
+    $("button.print-grocery-list").click(function(event){
+      var categoryIds = [];
+
+      // get the category Ids of the categories in the grocery list
+      $("#grocery-list .grocery-row").each(function(index){
+        categoryIds.push($(this).attr("categoryId"));
+      });
+      
+      createPrintableGroceryListDialog(["c1", "c3"]);
+      $("#dialog").dialog("open");
+    });
+
+
+
+    /* ------------------------- Print Dialog ------------------------- */
+     // creating the print dialog
+     $("#dialog" ).dialog({
+      autoOpen: false,
+      show: {
+        effect: "blind",
+        duration: 300
+      },
+      height: 800,
+      width: 600
+
+    });
 
   });
 

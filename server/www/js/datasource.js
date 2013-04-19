@@ -26,7 +26,6 @@ NutriNinja.nutrients = [
 				high : ["c1", "c2", "c3"],
 				low : ["c4"]
 			}
-
 		},
 		{
 			id : "n2",
@@ -70,32 +69,44 @@ NutriNinja.categories = [
 		{
 			id : "c1",
 			value : "Milk",
-			label : "Milk"
+			label : "Milk",
+			aisle: "3",
+			brands: ["Publix", "Turner", "Farm Fresh"]
 		},
 		{
 			id : "c2",
 			value : "Eggs",
-			label : "Eggs"
+			label : "Eggs",
+			aisle: "1",
+			brands: ["Farm Fresh", "Heitinga", "Woodfarm", "Market Pantry"]
 		},
 		{
 			id : "c3",
 			value : "Fish",
-			label : "Fish"
+			label : "Fish",
+			aisle: "5",
+			brands: ["Pirate Ship", "Greens", "Happy Ship", "Publix"]
 		},
 		{
 			id : "c4",
 			value : "Almonds",
-			label : "Almonds"
+			label : "Almonds",
+			aisle: "5",
+			brands: ["Smart Nuts", "Happy House"]
 		},
 		{
 			id : "c5",
 			value : "Oranges",
-			label : "Oranges"
+			label : "Oranges",
+			aisle: "7",
+			brands: ["Publix", "Farmers Market"]
 		},
 		{
 			id: "c6",
 			value: "Figs",
-			label: "Figs"
+			label: "Figs",
+			aisle: "9",
+			brands: ["Publix", "Farmers Market"]
 		}
 ];
 

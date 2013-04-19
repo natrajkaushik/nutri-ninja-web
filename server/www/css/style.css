@@ -45,7 +45,11 @@ body {
 }
 
 #nutri-ninja-banner{
-	margin-left:-10px;
+	margin-left:auto;
+}
+
+#nutri-ninja-logo{
+	float: right;
 }
 
 .personal-details span{
@@ -198,6 +202,17 @@ body {
 
 .add-category{
 	float:right;
+}
+
+.print-grocery-list{
+	position: absolute;
+	bottom: 5%;
+	left: 45%;
+}
+
+.print-category{
+	font-weight: bold;
+	font-size: 1.5em;
 }
 
 
