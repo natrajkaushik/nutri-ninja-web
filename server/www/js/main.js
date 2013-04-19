@@ -89,9 +89,20 @@
           if(!(_.contains(selectedNutrients, nutrient.id))){
             $("#nutrients-list").append(red_cross_html + "<li id=" + nutrient.id + " style=\"background:#FF8566\" class=\"ui-state-default nutrient-avoid\">" 
                         + nutrient.label + lights_img_html + "</li>");
-            selectedNutrients.push(nutrient.id);
-            setFocusOnNutrient(nutrient.id);
+            selectedNutrients.push(nutrient.id); 
           }
+          else{
+            var row = $("#" + nutrient.id);
+            row.css("background", "#FF8566");
+            row.addClass("nutrient-avoid");
+            row.removeClass("nutrient-less");
+            row.removeClass("nutrient-add");
+            row.prev().remove();
+            row.before(red_cross_html);
+          }
+          setFocusOnNutrient(nutrient.id);
+          clearCategoryWidget();
+          updateGroceryList();
         }
       }
     }
@@ -140,6 +151,7 @@
           }
           setFocusOnNutrient(parent.attr("id"));
           addCategories(parent.attr("id"));
+          updateGroceryList();
           //populateCategories();
           event.stopPropagation();   
         }
@@ -264,8 +276,8 @@
     /**
      * on click event handler on category row to add it to the grocery list
      */
-    $(document).on("click", "#categories-list .category-row", function(event){
-      var categoryId = $(this).attr("id");
+    $(document).on("click", "#categories-list .add-category", function(event){
+      var categoryId = $(this).parent().attr("id");
       if(!_.contains(selectedGroceries, categoryId)){
         var category = NutriNinja.getCategory(categoryId);
         var row = "<li id=" + "G" + categoryId + " categoryId=" + categoryId + " style=\"background:#FFFFFF\" class=\"ui-state-default grocery-row\">" + category.label 
@@ -287,8 +299,17 @@
 
     // TODO: update the grocery list
     function updateGroceryList(){
-      var categoryIds = $("#grocery-list .grocery-row").attr("categoryId");
-      clearGroceryList();
+      var categoriesToAvoid = getCategoriesToAvoid();
+      var groceryListItems = $("#grocery-list .grocery-row");
+      
+      groceryListItems.each(function(index){
+        var categoryId = $(this).attr("categoryId");
+        if(_.contains(categoriesToAvoid, categoryId)){
+          var index = selectedGroceries.indexOf(categoryId);
+          selectedGroceries.splice(index, 1);
+          $(this).remove();
+        }
+      });
     }
 
     /**
@@ -324,7 +345,7 @@
         categoryIds.push($(this).attr("categoryId"));
       });
       
-      createPrintableGroceryListDialog(["c1", "c3"]);
+      createPrintableGroceryListDialog(categoryIds);
       $("#dialog").dialog("open");
     });
 
