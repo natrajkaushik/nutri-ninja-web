@@ -13,21 +13,53 @@
     var selectedGroceries = []; // keeps track of currently selected grocery list
     var nutrientInFocus; // Nutrient for which category recommendations are currently present in the category widget
 
-
-    //$( ".sortable" ).sortable(); //make all the li's sortable
-    //$( ".sortable" ).disableSelection();
     $(".draggable").draggable(); // make the widgets draggable
 
     //initialize user details
-    var sampleUserDetails = "Name: Gery Oldman Age: 72 Gender: Male City: Atlanta, GA";
-    $(".personal-details span").text(sampleUserDetails);
+    var sampleUserDetails = "Name: Gery Oldman &nbsp&nbsp&nbsp&nbsp Age: 72 &nbsp&nbsp&nbsp&nbsp Gender: Male &nbsp&nbsp&nbsp&nbsp City: Atlanta, GA";
+    $(".personal-details span").html(sampleUserDetails);
+
+    var closeButtonHTML = "<img class=\"remove-button\" src=\"img/close.jpg\"/>";
+
+    // on clicking remove button
+    $(document).on("click", ".remove-button", function(event){
+      var listId = $(this).parent().attr("id");
+      var id = $(this).prev().attr("id");
+      var index;
+      var selectedContainer;
+
+      switch (listId){
+        case "ailments-list":
+          selectedContainer = selectedAilments;
+          break;
+        case "nutrients-list":
+          selectedContainer = selectedNutrients;
+          $(this).prev().prev().remove();
+          break;
+        case "categories-list":
+          selectedContainer = selectedCategories;
+          break;
+        case "grocery-list":
+          selectedContainer = selectedGroceries;
+          id = $(this).prev().attr("categoryId");
+          break;
+      }
+
+      index = selectedContainer.indexOf(id);
+      selectedContainer.splice(index, 1);
+
+      $(this).prev().remove();
+      $(this).remove();
+
+    })
 
     /* ------------------------- Ailments Widget ------------------------- */
     $("#ailments").autocomplete({
       source: ailments,
       select : function(event, ui){
         if(!(_.contains(selectedAilments, ui.item.id))){
-          $("#ailments-list").append("<li id=" + ui.item.id + " class=\"ui-state-default\">" + ui.item.label + "</li>");
+          $("#ailments-list").append("<li id=" + ui.item.id + " class=\"ui-state-default ailment-row\">" + 
+                    ui.item.label + "</li>" + closeButtonHTML);
           selectedAilments.push(ui.item.id);
 
           var nutrientInfo = {add : ui.item.nutrientsNeeded, avoid : ui.item.nutrientsToAvoid};
@@ -41,19 +73,19 @@
 
     
     /* ------------------------- Nutrients Widget ------------------------- */
-    var lights_img_html = "<img id=\"green-light\" class=\"traffic-light\" src=\"img/green_n.png\"></img>" + "<img id=\"orange-light\" class=\"traffic-light\" src=\"img/yellow_n.png\"></img>" 
+    var lightsImgHTML = "<img id=\"green-light\" class=\"traffic-light\" src=\"img/green_n.png\"></img>" + "<img id=\"orange-light\" class=\"traffic-light\" src=\"img/yellow_n.png\"></img>" 
               + "<img id=\"red-light\" class=\"traffic-light\" src=\"img/red_n.png\"></img>";
 
-    var green_tick_html = "<img class=\"selection-feedback\" src=\"img/yes.png\"/>";
-    var light_green_tick_html = "<img class=\"selection-feedback\" src=\"img/maybe.png\"/>";
-    var red_cross_html = "<img class=\"selection-feedback\" src=\"img/no.png\"/>";
+    var greenTickHTML = "<img class=\"selection-feedback\" src=\"img/yes.png\"/>";
+    var lightGreenTickHTML = "<img class=\"selection-feedback\" src=\"img/maybe.png\"/>";
+    var redCrossHTML = "<img class=\"selection-feedback\" src=\"img/no.png\"/>";
 
     $("#nutrients").autocomplete({
       source: nutrients,
       select : function(event, ui){
         if(!(_.contains(selectedNutrients, ui.item.id))){
-          $("#nutrients-list").append(green_tick_html + "<li id=" + ui.item.id + " style=\"background:#CCFF99\" class=\"ui-state-default nutrient-add\">" 
-                        + ui.item.label + lights_img_html + "</li>");
+          $("#nutrients-list").append(greenTickHTML + "<li id=" + ui.item.id + " style=\"background:#CCFF99\" class=\"ui-state-default nutrient-add nutrient-row\">" 
+                        + ui.item.label + lightsImgHTML + "</li>" + closeButtonHTML);
           selectedNutrients.push(ui.item.id);
           setFocusOnNutrient(ui.item.id);
           addCategories(ui.item.id);
@@ -73,8 +105,8 @@
         for(var i = 0; i < add.length; i++){
           var nutrient = NutriNinja.getNutrient(add[i]);
           if(!(_.contains(selectedNutrients, nutrient.id))){
-            $("#nutrients-list").append(green_tick_html + "<li id=" + nutrient.id + " style=\"background:#CCFF99\" class=\"ui-state-default nutrient-add\">" 
-                        + nutrient.label + lights_img_html + "</li>");
+            $("#nutrients-list").append(greenTickHTML + "<li id=" + nutrient.id + " style=\"background:#CCFF99\" class=\"ui-state-default nutrient-add nutrient-row\">" 
+                        + nutrient.label + lightsImgHTML + "</li>" + closeButtonHTML);
             selectedNutrients.push(nutrient.id);
             addCategories(nutrient.id);
             setFocusOnNutrient(nutrient.id);
@@ -87,8 +119,8 @@
         for(var i = 0; i < avoid.length; i++){
           var nutrient = NutriNinja.getNutrient(avoid[i]);
           if(!(_.contains(selectedNutrients, nutrient.id))){
-            $("#nutrients-list").append(red_cross_html + "<li id=" + nutrient.id + " style=\"background:#FF8566\" class=\"ui-state-default nutrient-avoid\">" 
-                        + nutrient.label + lights_img_html + "</li>");
+            $("#nutrients-list").append(redCrossHTML + "<li id=" + nutrient.id + " style=\"background:#FF8566\" class=\"ui-state-default nutrient-avoid nutrient-row\">" 
+                        + nutrient.label + lightsImgHTML + "</li>" + closeButtonHTML);
             selectedNutrients.push(nutrient.id); 
           }
           else{
@@ -98,7 +130,7 @@
             row.removeClass("nutrient-less");
             row.removeClass("nutrient-add");
             row.prev().remove();
-            row.before(red_cross_html);
+            row.before(redCrossHTML);
           }
           setFocusOnNutrient(nutrient.id);
           clearCategoryWidget();
@@ -122,7 +154,7 @@
               parent.removeClass("nutrient-less");
               parent.addClass("nutrient-add");
               parent.prev().remove();
-              parent.before(green_tick_html);
+              parent.before(greenTickHTML);
               break;
             case "orange-light":
               parent.css("background", "#FFD699");
@@ -130,7 +162,7 @@
               parent.addClass("nutrient-less");
               parent.removeClass("nutrient-add");
               parent.prev().remove();
-              parent.before(light_green_tick_html);
+              parent.before(lightGreenTickHTML);
               break;
             case "red-light":
               parent.css("background", "#FF8566");
@@ -138,7 +170,7 @@
               parent.removeClass("nutrient-less");
               parent.removeClass("nutrient-add");
               parent.prev().remove();
-              parent.before(red_cross_html);
+              parent.before(redCrossHTML);
               break;
             default:  
               parent.css("background", "#CCFF99");
@@ -146,7 +178,7 @@
               parent.removeClass("nutrient-less");
               parent.addClass("nutrient-add");
               parent.prev().remove();
-              parent.before(green_tick_html);
+              parent.before(greenTickHTML);
               break;
           }
           setFocusOnNutrient(parent.attr("id"));
@@ -214,7 +246,7 @@
       if(!_.contains(selectedCategories, categoryId)){
         var category = NutriNinja.getCategory(categoryId);
         var row = "<li id=" + categoryId + " style=\"background:#FFFFFF\" class=\"ui-state-default category-row\">" + category.label 
-                  + "<img src=\"img/add.png\" class=\"add-category\">" + "</li>";
+                  + "<img src=\"img/add.png\" class=\"add-category\">" + "</li>" + closeButtonHTML;
         $("#categories-list").append(row);
         selectedCategories.push(categoryId);  
       }
@@ -225,6 +257,7 @@
      */
     function clearCategoryWidget(){
       $("#categories-list .category-row").remove();
+      $("#categories-list .remove-button").remove();
       selectedCategories = []; 
     }
 
@@ -281,7 +314,7 @@
       if(!_.contains(selectedGroceries, categoryId)){
         var category = NutriNinja.getCategory(categoryId);
         var row = "<li id=" + "G" + categoryId + " categoryId=" + categoryId + " style=\"background:#FFFFFF\" class=\"ui-state-default grocery-row\">" + category.label 
-                  + "</li>";
+                  + "</li>" + closeButtonHTML;
         $("#grocery-list").append(row);
         selectedGroceries.push(categoryId);  
       }  
@@ -294,10 +327,13 @@
      */
     function clearGroceryList(){
       $("#grocery-list .grocery-row").remove();
+      $("#grocery-list .remove-button").remove();
       selectedGroceries = []; 
     }
 
-    // TODO: update the grocery list
+    /**
+     * update the grocery list
+     */
     function updateGroceryList(){
       var categoriesToAvoid = getCategoriesToAvoid();
       var groceryListItems = $("#grocery-list .grocery-row");
@@ -307,6 +343,7 @@
         if(_.contains(categoriesToAvoid, categoryId)){
           var index = selectedGroceries.indexOf(categoryId);
           selectedGroceries.splice(index, 1);
+          $(this).next().remove();
           $(this).remove();
         }
       });
