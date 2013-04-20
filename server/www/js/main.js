@@ -19,7 +19,7 @@
     var sampleUserDetails = "Name: Gery Oldman &nbsp&nbsp&nbsp&nbsp Age: 72 &nbsp&nbsp&nbsp&nbsp Gender: Male &nbsp&nbsp&nbsp&nbsp City: Atlanta, GA";
     $(".personal-details span").html(sampleUserDetails);
 
-    var closeButtonHTML = "<img class=\"remove-button\" src=\"img/close.jpg\"/>";
+    var closeButtonHTML = "<img class=\"remove-button\" src=\"img/close.png\"/>";
 
     // on clicking remove button
     $(document).on("click", ".remove-button", function(event){
