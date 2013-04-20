@@ -396,7 +396,7 @@
         effect: "blind",
         duration: 300
       },
-      height: 800,
+      height: 600,
       width: 600
 
     });
